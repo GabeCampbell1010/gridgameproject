@@ -6,19 +6,19 @@ using UnityEngine.SceneManagement;
 public class PlaceCharacter : MonoBehaviour
 {
     private GameObject character;
-	private GameObject firstEnemy;
+    private GameObject firstEnemy;
     private bool canPlace;
-	private GameObject floor;
+    private GameObject floor;
     private Grid grid;
-	private IEnumerator coroutine;
-	private IEnumerator coroutineRevert;
+    private IEnumerator coroutine;
+    private IEnumerator coroutineRevert;
 
-	public float speed = 10f;
+    public float speed = 10f;
     public Vector2 pos;
 		
     public static int maxCharacters = 4; 
     public static int characterNum = 0; 
-	public static GameObject[] characters;
+    public static GameObject[] characters;
    
     void Start()
     {
@@ -33,7 +33,6 @@ public class PlaceCharacter : MonoBehaviour
         for (int i = 0; i < characters.Length; i++)
         {
             characters[i] = GameObject.Find("Character" + (i + 1));
-            
         }
     }
 
@@ -133,22 +132,22 @@ public class PlaceCharacter : MonoBehaviour
 
     void UndoCharacterPlace()
     {
-		//supposed to be a reverse version of place next character
-		characterNum--;//changed to --   
-		characters[characterNum + 1].GetComponent<PlaceCharacter>().enabled = false;
-		characters[characterNum + 1].GetComponent<Renderer>().enabled = false;
-		characters[characterNum + 1].transform.GetChild(0).GetComponent<Renderer>().enabled = false;
-		characters[characterNum + 1].transform.GetChild(1).GetComponent<Renderer>().enabled = false;
-		
-		int tx = (int)Mathf.Round(characters[characterNum].transform.position.x);
-		int ty = (int)Mathf.Round(characters[characterNum].transform.position.y);
-		
-		grid.taken[tx, ty] = 0;
+        //supposed to be a reverse version of place next character
+        characterNum--;//changed to --   
+        characters[characterNum + 1].GetComponent<PlaceCharacter>().enabled = false;
+        characters[characterNum + 1].GetComponent<Renderer>().enabled = false;
+        characters[characterNum + 1].transform.GetChild(0).GetComponent<Renderer>().enabled = false;
+        characters[characterNum + 1].transform.GetChild(1).GetComponent<Renderer>().enabled = false;
 
-		canPlace = true;
+        int tx = (int)Mathf.Round(characters[characterNum].transform.position.x);
+        int ty = (int)Mathf.Round(characters[characterNum].transform.position.y);
 
-		characters[characterNum].GetComponent<Renderer>().enabled = true;
-		characters[characterNum].GetComponent<PlaceCharacter>().enabled = true;
+        grid.taken[tx, ty] = 0;
+
+        canPlace = true;
+
+        characters[characterNum].GetComponent<Renderer>().enabled = true;
+        characters[characterNum].GetComponent<PlaceCharacter>().enabled = true;
     }
 
     void PlaceNextCharacter()
@@ -194,7 +193,7 @@ public class PlaceCharacter : MonoBehaviour
     {
         int tx = (int)Mathf.Round(characters[characterNum].transform.position.x);
         int ty = (int)Mathf.Round(characters[characterNum].transform.position.y);
-        
+
         grid.taken[tx, ty] = 0;
         canPlace = true;
         characters[characterNum].GetComponent<Renderer>().enabled = true;
